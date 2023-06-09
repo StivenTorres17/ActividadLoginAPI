@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const Uri = "mongodb+srv://admin:Tf5xLca8mfPiuMqn@dbusers.d41ttak.mongodb.net/DBUsers?retryWrites=true&w=majority";
+const Uri = "mongodb+srv://admin:PASSWORD@dbusers.d41ttak.mongodb.net/?retryWrites=true&w=majority";
 
 mongoose.connect(Uri, {
   useNewUrlParser: true,
@@ -13,7 +13,9 @@ const userSchema = new mongoose.Schema({
 
     username: {type:String, required:true},
     email: {type:String, required:true},
-    password: {type:String, required:true}
+    password: {type:String, required:true},
+    picture: {type:String},
+    role: {type:String, default:"user"}
 });
 
 module.exports = mongoose.model('Usuarios', userSchema);

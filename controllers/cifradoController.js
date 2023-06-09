@@ -1,29 +1,25 @@
-const bcrypt = require("bcryptjs");
+const bcrypt = require('bcryptjs'); //TODO: Se importa la librería bcryptjs.
 
-// cifrado de contraseña
-const saltRounds = 10;
-const plainPassword = "password123";
-bcrypt.hash(plainPassword,saltRounds, function(err, hash){
-    if(err){
-        console.error(err);
-    }
-    else {
-        console.log('Se creó el hash de la contraseña ',hash);
-    }
-})
+const saltRounds = 10; //* Número de rondas de sal para generar el hash.
+const plainPassword = 'password123'; //* Contraseña en texto plano.
 
-// Autenticación con el hash
-const hashedPassword = '$2b$10$';
-const loginPassword = 'password123';
+bcrypt.hash(plainPassword, saltRounds, function (error, hash) {
+    if (error) {
+        console.log(error); //* Si ocurre un error, se muestra en la consola.
+    } else {
+        console.log('Se creó el hash de la contraseña:', hash); // Se muestra en la consola el hash de la contraseña generada.
+    }
+});
 
-bcrypt.compare(loginPassword,hashedPassword,function(err, result){
-    if(err){
-        console.error(err);
+const hashedPassword = '$2b$10$'; //TODO: Contraseña con hash previamente generada.
+const loginPassword = 'password123'; //TODO: Contraseña para iniciar sesión.
+
+bcrypt.compare(loginPassword, hashedPassword, function (error, result) {
+    if (error) {
+        console.log(error); //* Si ocurre un error, se muestra en la consola.
+    } else if (result) {
+        console.log('La contraseña es válida'); //* Si la contraseña coincide, se muestra en la consola.
+    } else {
+        console.log('La contraseña no es válida'); //* Si la contraseña no coincide, se muestra en la consola.
     }
-    else if(result){
-        console.log("La contraseña es válida");
-    }
-    else{
-        console.log("La contraseña es inválida");
-    }
-})
+});
