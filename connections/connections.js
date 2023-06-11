@@ -55,4 +55,4 @@ exports.dbConnection = async () => {
  * * Mostrar mensajes de error con console.error es más adecuado para indicar problemas. 
  * * Además, finalizar la ejecución del programa en caso de error evita continuar con una conexión inválida y permite tomar medidas apropiadas. 
  * * En general, el segundo código es más robusto, legible y adecuado para establecer la conexión con la base de datos de manera segura y eficiente.
-*/ 
+*/

@@ -21,7 +21,7 @@ exports.createUser = (req, res) => {
   const {
     username,
     email,
-    password,
+    password
   } = req.body; //? Se obtienen los datos del nuevo usuario de los parámetros de la solicitud.
   const saltRounds = 10; //TODO: Número de rondas de sal para generar el hash de la contraseña.
   bcrypt.hash(password, saltRounds, function (err, hash) {
@@ -32,6 +32,7 @@ exports.createUser = (req, res) => {
         username,
         email,
         password: hash, //TODO: Se utiliza el hash generado como contraseña en el nuevo usuario.
+        picture:""
       });
       newUser
         .save() //? Se guarda el nuevo usuario en la base de datos.
@@ -46,6 +47,7 @@ exports.createUser = (req, res) => {
 exports.updateUser = (req, res) => {
   const { id } = req.params; //? Se obtiene el ID del usuario de los parámetros de la solicitud.
   const { username, email, password } = req.body; //* Se obtienen los datos actualizados del usuario de los parámetros de la solicitud.
+  const avatarFileName = req.file ? req.file.filename:null;
   const saltRounds = 10; //TODO: Número de rondas de sal para generar el hash de la contraseña.
 
   bcrypt.hash(password, saltRounds, function (err, hash) {
@@ -53,7 +55,7 @@ exports.updateUser = (req, res) => {
       res.status(500).json({ error: err.message }); //* Si hay un error al generar el hash de la contraseña, se devuelve un mensaje de error con un código de estado 500.
     }
     else {
-      userModel.findByIdAndUpdate(id, { username, email, password: hash }, { new: true })
+      userModel.findByIdAndUpdate(id, { username, email, password: hash, picture:avatarFileName }, { new: true })
         .then(user => {
           if (!user) throw new Error(`El usuario con el ID ${id} no existe`); //* Si no se encuentra el usuario, se lanza un error.
           res.status(200).json({ user }); //* Si se actualiza el usuario exitosamente, se devuelve un objeto JSON con el usuario actualizado y un código de estado 200.

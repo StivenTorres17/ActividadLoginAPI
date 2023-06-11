@@ -2,6 +2,9 @@ const bcrypt = require("bcryptjs"); //TODO: Se importa la librería bcryptjs par
 const usersModel = require("../models/usersModel"); //TODO: Se importa el modelo usersModel desde el archivo usersModel.js.
 const jwt = require("jsonwebtoken"); //TODO: Se importa la librería jsonwebtoken para la generación de tokens.
 
+const secret = process.env.JWT_SECRET;
+const encodedSecret = Buffer.from(secret).toString("base64");
+
 require("dotenv").config(); //? Se carga la configuración del entorno.
 
 exports.authenticateUser = (req, res) => {
